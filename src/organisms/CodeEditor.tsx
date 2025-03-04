@@ -24,7 +24,7 @@ const highlightJSON = (code: string): string => {
       // Match string values with quotes
       .replace(/:\s*"([^"]*)"/g, ': <span style="color: #ce9178;">"$1"</span>')
       // Match booleans
-      .replace(/:\s*(true|false)(?=\s*[,}\]]|$)/g, (match, p1) => 
+      .replace(/:\s*(true|false)(?=\s*[,}\]]|$)/g, (_match, p1) => 
         `: <span style="color: #569cd6;">${p1}</span>`
       )
       // Match numbers
