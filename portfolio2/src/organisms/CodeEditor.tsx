@@ -7,107 +7,6 @@ interface CodeEditorProps {
   onChange: (value: string) => void;
 }
 
-const EditorContainer = styled.div`
-  position: relative;
-  height: 100%;
-  background-color: #1d1e22;
-  overflow: hidden;
-`;
-
-const LineNumbersContainer = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 40px;
-  text-align: right;
-  background-color: #1d1e22;
-  color: #858585;
-  font-family: 'MonoLisa', 'Consolas', monospace;
-  font-size: 13px;
-  user-select: none;
-  border-right: 1px solid #2a2c35;
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
-`;
-
-const LineNumbersScroller = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  padding-top: 15px; /* Match the textarea padding */
-  box-sizing: border-box;
-  /* Hide scrollbar but allow scrolling */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-  }
-`;
-
-const LineNumbersContent = styled.div`
-  width: 100%;
-  padding-right: 10px;
-  box-sizing: border-box;
-`;
-
-const LineNumber = styled.div`
-  height: 20px;
-  line-height: 20px;
-  text-align: right;
-`;
-
-const TextAreaWrapper = styled.div`
-  margin-left: 40px;
-  height: 100%;
-  position: relative;
-`;
-
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  height: 100%;
-  background-color: #1d1e22;
-  color: #e6e6e6;
-  font-family: 'MonoLisa', 'Consolas', monospace;
-  font-size: 13px;
-  border: none;
-  resize: none;
-  padding: 15px;
-  padding-left: 10px;
-  line-height: 20px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  tab-size: 2;
-  overflow-y: scroll;
-  box-sizing: border-box;
-  
-  &:focus {
-    outline: none;
-  }
-`;
-
-// Component for syntax-highlighted view (read-only overlay)
-const SyntaxHighlighter = styled.pre`
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0;
-  padding: 15px;
-  padding-left: 10px;
-  background: transparent;
-  pointer-events: none;
-  font-family: 'MonoLisa', 'Consolas', monospace;
-  font-size: 13px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  line-height: 20px;
-  tab-size: 2;
-  width: 100%;
-  height: 100%; 
-  overflow: auto;
-  color: transparent;
-  box-sizing: border-box;
-`;
 
 // JSON syntax highlighting function
 const highlightJSON = (code: string): string => {
@@ -193,7 +92,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
   // Update line count when content changes
   useEffect(() => {
     updateLineCount();
-  }, [value]);
+  }, [value,]);
   
   // Set up resize observer to detect container size changes
   useEffect(() => {
@@ -211,7 +110,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  },);
   
   // Synchronize scrolling between textarea and other elements
   useEffect(() => {
@@ -343,5 +242,108 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
     </EditorContainer>
   );
 };
+
+const EditorContainer = styled.div`
+  position: relative;
+  height: 100%;
+  background-color: #1d1e22;
+  overflow: hidden;
+`;
+
+const LineNumbersContainer = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  text-align: right;
+  background-color: #1d1e22;
+  color: #858585;
+  font-family: 'MonoLisa', 'Consolas', monospace;
+  font-size: 13px;
+  user-select: none;
+  border-right: 1px solid #2a2c35;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+`;
+
+const LineNumbersScroller = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-top: 15px; /* Match the textarea padding */
+  box-sizing: border-box;
+  /* Hide scrollbar but allow scrolling */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+`;
+
+const LineNumbersContent = styled.div`
+  width: 100%;
+  padding-right: 10px;
+  box-sizing: border-box;
+`;
+
+const LineNumber = styled.div`
+  height: 20px;
+  line-height: 20px;
+  text-align: right;
+`;
+
+const TextAreaWrapper = styled.div`
+  margin-left: 40px;
+  height: 100%;
+  position: relative;
+`;
+
+const StyledTextArea = styled.textarea`
+  width: 100%;
+  height: 100%;
+  background-color: #1d1e22;
+  color: #e6e6e6;
+  font-family: 'MonoLisa', 'Consolas', monospace;
+  font-size: 13px;
+  border: none;
+  resize: none;
+  padding: 15px;
+  padding-left: 10px;
+  line-height: 20px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  tab-size: 2;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  
+  &:focus {
+    outline: none;
+  }
+`;
+
+// Component for syntax-highlighted view (read-only overlay)
+const SyntaxHighlighter = styled.pre`
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 15px;
+  padding-left: 10px;
+  background: transparent;
+  pointer-events: none;
+  font-family: 'MonoLisa', 'Consolas', monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 20px;
+  tab-size: 2;
+  width: 100%;
+  height: 100%; 
+  overflow: auto;
+  color: transparent;
+  box-sizing: border-box;
+`;
+
 
 export default CodeEditor;
